@@ -26,8 +26,8 @@ public class MyFrame extends javax.swing.JFrame {
 
     ArrayList<Region> regioner = new ArrayList<>();
     ArrayList<Ålder> åldrar = new ArrayList<>();
-    int sjukdomsFall, sjukdomsFallMän,
-        intensivVårdare, intensivVårdareMän,
+    int sjukdomsFall, sjukdomsFallMän, // apin hade bara statistik om män! så antal kvinnor = total-män
+        intensivVårdade, intensivVårdadeMän,
         avlidna, avlidnaMän;
     
     /**
@@ -46,50 +46,314 @@ public class MyFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txt = new javax.swing.JTextArea();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtSjukdomsFall = new javax.swing.JLabel();
+        txtSjukdomsFallKvinnor = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtSjukdomsFallMän = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtAvlidna = new javax.swing.JLabel();
+        txtAvlidnaKvinnor = new javax.swing.JLabel();
+        txtAvlidnaMän = new javax.swing.JLabel();
+        txtIntensivVårdade = new javax.swing.JLabel();
+        txtIntensivVårdadeKvinnor = new javax.swing.JLabel();
+        txtIntensivVårdadeMän = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        txtResultat = new javax.swing.JLabel();
+        btnCheck = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Run");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Regioner sjuka+avlidna(overlapped histogram)"));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 198, Short.MAX_VALUE)
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Åldersgrupper sjuka+avlidna(overlapped histogram)"));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 229, Short.MAX_VALUE)
+        );
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setText("Sjukdomsfall");
+
+        txtSjukdomsFall.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtSjukdomsFall.setForeground(new java.awt.Color(204, 204, 0));
+        txtSjukdomsFall.setText("18926");
+        txtSjukdomsFall.setToolTipText("");
+
+        txtSjukdomsFallKvinnor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtSjukdomsFallKvinnor.setText("Kvinnor: 10358");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setText("|");
+
+        txtSjukdomsFallMän.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtSjukdomsFallMän.setText("Män: 8568");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setText("Avlidna");
+
+        txtAvlidna.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtAvlidna.setForeground(new java.awt.Color(204, 0, 51));
+        txtAvlidna.setText("2274");
+        txtAvlidna.setToolTipText("");
+
+        txtAvlidnaKvinnor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtAvlidnaKvinnor.setText("Kvinnor: 351");
+
+        txtAvlidnaMän.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtAvlidnaMän.setText("Män: 8568");
+
+        txtIntensivVårdade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtIntensivVårdade.setForeground(new java.awt.Color(153, 102, 0));
+        txtIntensivVårdade.setText("18926");
+        txtIntensivVårdade.setToolTipText("");
+
+        txtIntensivVårdadeKvinnor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtIntensivVårdadeKvinnor.setText("Kvinnor: 10358");
+
+        txtIntensivVårdadeMän.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtIntensivVårdadeMän.setText("Män: 8568");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel13.setText("Intensivvårdade");
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel14.setText("|");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel15.setText("|");
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel16.setText("Vill du veta om du överlever?!");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel17.setText("I vilken region bor du?");
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel18.setText("Hur gammal är du?");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        txtResultat.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtResultat.setText("Du har 10% chans att överleva!!!!!!!!!");
+
+        btnCheck.setText("Check");
+        btnCheck.setEnabled(false);
+        btnCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCheckActionPerformed(evt);
             }
         });
 
-        txt.setColumns(20);
-        txt.setRows(5);
-        jScrollPane1.setViewportView(txt);
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCheck))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel18)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(109, 109, 109)
+                .addComponent(txtResultat)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(btnCheck))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(txtResultat)))
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+
+        btnUpdate.setBackground(new java.awt.Color(204, 255, 204));
+        btnUpdate.setFont(new java.awt.Font("Unispace", 1, 11)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(204, 255, 204));
+        btnUpdate.setText("UPDATE");
+        btnUpdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUpdateMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(txtSjukdomsFall, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnUpdate)
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel1)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(367, 367, 367)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel13))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(296, 296, 296)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(71, 71, 71)
+                                .addComponent(txtAvlidna, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtAvlidnaKvinnor, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtAvlidnaMän, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
+                        .addComponent(txtIntensivVårdade)
+                        .addGap(15, 15, 15)))
+                .addGap(181, 181, 181))
             .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1171, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
+                .addComponent(txtSjukdomsFallKvinnor, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtSjukdomsFallMän, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtIntensivVårdadeKvinnor, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtIntensivVårdadeMän, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(128, 128, 128))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel6)
+                            .addComponent(btnUpdate))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtIntensivVårdade)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtIntensivVårdadeKvinnor)
+                                    .addComponent(txtIntensivVårdadeMän)
+                                    .addComponent(jLabel15)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtAvlidna)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtAvlidnaKvinnor)
+                                    .addComponent(txtAvlidnaMän)
+                                    .addComponent(jLabel14)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtSjukdomsFall)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSjukdomsFallKvinnor)
+                            .addComponent(jLabel4)
+                            .addComponent(txtSjukdomsFallMän))))
+                .addGap(23, 23, 23)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        getAccessibleContext().setAccessibleDescription("");
+        getAccessibleContext().setAccessibleParent(this);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCheckActionPerformed
+
+    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
+        System.out.println("loading");
         try {
             updateData();
         } catch (JSONException ex) {
@@ -97,13 +361,8 @@ public class MyFrame extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for(Region r:regioner){
-            System.out.println(r.toString());
-        }
-        for(Ålder å:åldrar){
-            System.out.println(å.toString());
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        System.out.println("updated");
+    }//GEN-LAST:event_btnUpdateMouseClicked
 
     /**
      * @param args the command line arguments
@@ -136,6 +395,8 @@ public class MyFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MyFrame().setVisible(true);
+                
+                
             }
         });
     }
@@ -148,7 +409,7 @@ public class MyFrame extends javax.swing.JFrame {
         String nyafallUrl  = "https://services5.arcgis.com/fsYDFeRKu1hELJJs/arcgis/rest/services/FOHM_Covid_19_FME_1/FeatureServer/1/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Statistikdatum%20desc&resultOffset=0&resultRecordCount=32000&resultType=standard&cacheHint=true";
         String totalAvlidnaUrl = "https://services5.arcgis.com/fsYDFeRKu1hELJJs/arcgis/rest/services/FOHM_Covid_19_FME_1/FeatureServer/3/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Totalt_antal_avlidna%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true";
         String totalAvlidnaMänUrl = "https://services5.arcgis.com/fsYDFeRKu1hELJJs/arcgis/rest/services/FOHM_Covid_19_FME_1/FeatureServer/3/query?f=json&where=K%C3%B6n%3D%27Man%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Totalt_antal_avlidna%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true";
-        String intensivVårdareUrl = "https://services5.arcgis.com/fsYDFeRKu1hELJJs/arcgis/rest/services/FOHM_Covid_19_FME_1/FeatureServer/3/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Totalt_antal_intensivv%C3%A5rdade%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true";
+        String intensivVårdadeUrl = "https://services5.arcgis.com/fsYDFeRKu1hELJJs/arcgis/rest/services/FOHM_Covid_19_FME_1/FeatureServer/3/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Totalt_antal_intensivv%C3%A5rdade%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true";
         String intensivVårdareMänUrl = "https://services5.arcgis.com/fsYDFeRKu1hELJJs/arcgis/rest/services/FOHM_Covid_19_FME_1/FeatureServer/3/query?f=json&where=K%C3%B6n%3D%27Man%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Totalt_antal_intensivv%C3%A5rdade%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true";
         String sjukdomsFallUrl = "https://services5.arcgis.com/fsYDFeRKu1hELJJs/arcgis/rest/services/FOHM_Covid_19_FME_1/FeatureServer/3/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Totalt_antal_fall%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true";
         String sjukdomsFallMänUrl = "https://services5.arcgis.com/fsYDFeRKu1hELJJs/arcgis/rest/services/FOHM_Covid_19_FME_1/FeatureServer/3/query?f=json&where=K%C3%B6n%3D%27Man%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Totalt_antal_fall%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true";
@@ -159,10 +420,19 @@ public class MyFrame extends javax.swing.JFrame {
         // få sensate statiskten om hela landet
         avlidna = fetch(totalAvlidnaUrl).getJSONArray("features").getJSONObject(0).getJSONObject("attributes").getInt("value");
         avlidnaMän = fetch(totalAvlidnaMänUrl).getJSONArray("features").getJSONObject(0).getJSONObject("attributes").getInt("value");
-        intensivVårdare = fetch(intensivVårdareUrl).getJSONArray("features").getJSONObject(0).getJSONObject("attributes").getInt("value");
-        intensivVårdareMän = fetch(intensivVårdareMänUrl).getJSONArray("features").getJSONObject(0).getJSONObject("attributes").getInt("value");
+        intensivVårdade = fetch(intensivVårdadeUrl).getJSONArray("features").getJSONObject(0).getJSONObject("attributes").getInt("value");
+        intensivVårdadeMän = fetch(intensivVårdareMänUrl).getJSONArray("features").getJSONObject(0).getJSONObject("attributes").getInt("value");
         sjukdomsFall = fetch(sjukdomsFallUrl).getJSONArray("features").getJSONObject(0).getJSONObject("attributes").getInt("value");
         sjukdomsFallMän = fetch(sjukdomsFallMänUrl).getJSONArray("features").getJSONObject(0).getJSONObject("attributes").getInt("value");
+        txtAvlidna.setText(String.valueOf(avlidna));
+        txtAvlidnaKvinnor.setText("Kvinnor: "+String.valueOf(avlidna-avlidnaMän));
+        txtAvlidnaMän.setText("Män: "+String.valueOf(avlidnaMän));
+        txtSjukdomsFall.setText(String.valueOf(sjukdomsFall));
+        txtSjukdomsFallKvinnor.setText("Kvinnor: "+String.valueOf(sjukdomsFall-sjukdomsFallMän));
+        txtSjukdomsFallMän.setText("Män: "+String.valueOf(sjukdomsFallMän));
+        txtIntensivVårdade.setText(String.valueOf(intensivVårdade));
+        txtIntensivVårdadeKvinnor.setText("Kvinnor: "+String.valueOf(intensivVårdade-intensivVårdadeMän));
+        txtIntensivVårdadeMän.setText("Män: "+String.valueOf(intensivVårdadeMän));
 
         // få statistiken om olika åldersgrupper
         JSONArray ålsersGruppSjukdomsFallData = fetch(ålsersGruppSjukdomsFallUrl).getJSONArray("features");
@@ -215,8 +485,31 @@ public class MyFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txt;
+    private javax.swing.JButton btnCheck;
+    private javax.swing.JLabel btnUpdate;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel txtAvlidna;
+    private javax.swing.JLabel txtAvlidnaKvinnor;
+    private javax.swing.JLabel txtAvlidnaMän;
+    private javax.swing.JLabel txtIntensivVårdade;
+    private javax.swing.JLabel txtIntensivVårdadeKvinnor;
+    private javax.swing.JLabel txtIntensivVårdadeMän;
+    private javax.swing.JLabel txtResultat;
+    private javax.swing.JLabel txtSjukdomsFall;
+    private javax.swing.JLabel txtSjukdomsFallKvinnor;
+    private javax.swing.JLabel txtSjukdomsFallMän;
     // End of variables declaration//GEN-END:variables
 }
