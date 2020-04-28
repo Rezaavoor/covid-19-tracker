@@ -1,4 +1,6 @@
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,6 +10,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.Value;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,12 +39,14 @@ public class MyFrame extends javax.swing.JFrame {
     int sjukdomsFall, sjukdomsFallMän, // apin hade bara statistik om män! så antal kvinnor = total-män
         intensivVårdade, intensivVårdadeMän,
         avlidna, avlidnaMän;
-    
+
     /**
      * Creates new form MyFrame
      */
     public MyFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        panelRegioner.setLayout(new java.awt.BorderLayout());
     }
 
     /**
@@ -46,8 +58,8 @@ public class MyFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        panelRegioner = new javax.swing.JPanel();
+        panelÅldersGrupper = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtSjukdomsFall = new javax.swing.JLabel();
         txtSjukdomsFallKvinnor = new javax.swing.JLabel();
@@ -75,29 +87,29 @@ public class MyFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Regioner sjuka+avlidna(overlapped histogram)"));
+        panelRegioner.setBorder(javax.swing.BorderFactory.createTitledBorder("Regioner sjuka+avlidna(overlapped histogram)"));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelRegionerLayout = new javax.swing.GroupLayout(panelRegioner);
+        panelRegioner.setLayout(panelRegionerLayout);
+        panelRegionerLayout.setHorizontalGroup(
+            panelRegionerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelRegionerLayout.setVerticalGroup(
+            panelRegionerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 198, Short.MAX_VALUE)
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Åldersgrupper sjuka+avlidna(overlapped histogram)"));
+        panelÅldersGrupper.setBorder(javax.swing.BorderFactory.createTitledBorder("Åldersgrupper sjuka+avlidna(overlapped histogram)"));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelÅldersGrupperLayout = new javax.swing.GroupLayout(panelÅldersGrupper);
+        panelÅldersGrupper.setLayout(panelÅldersGrupperLayout);
+        panelÅldersGrupperLayout.setHorizontalGroup(
+            panelÅldersGrupperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelÅldersGrupperLayout.setVerticalGroup(
+            panelÅldersGrupperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 229, Short.MAX_VALUE)
         );
 
@@ -171,7 +183,6 @@ public class MyFrame extends javax.swing.JFrame {
         txtResultat.setText("Du har 10% chans att överleva!!!!!!!!!");
 
         btnCheck.setText("Check");
-        btnCheck.setEnabled(false);
         btnCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCheckActionPerformed(evt);
@@ -260,8 +271,7 @@ public class MyFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(71, 71, 71)
-                                .addComponent(txtAvlidna, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47))
+                                .addComponent(txtAvlidna, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtAvlidnaKvinnor, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -288,11 +298,11 @@ public class MyFrame extends javax.swing.JFrame {
                 .addGap(128, 128, 128))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelRegioner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelÅldersGrupper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -334,9 +344,9 @@ public class MyFrame extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(txtSjukdomsFallMän))))
                 .addGap(23, 23, 23)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelRegioner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelÅldersGrupper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -348,8 +358,37 @@ public class MyFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private DefaultCategoryDataset createDataset() {
+        // same dataset for line chart and bar chart
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(15, "products", "1970");
+        dataset.addValue(30, "products", "1980");
+        dataset.addValue(60, "products", "1990");
+        dataset.addValue(120, "products", "2000");
+        dataset.addValue(240, "products", "2010");
+        dataset.addValue(300, "products", "2014");
+
+        return dataset;
+    }
+    
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
-        // TODO add your handling code here:
+        // create bar chart 
+        JFreeChart barChart = ChartFactory.createBarChart(
+                "Number of Products vs years",
+                "Years", "Number of Products",
+                createDataset(),
+                PlotOrientation.VERTICAL,
+                true, true, false);
+        // set color
+        CategoryPlot plot = (CategoryPlot) barChart.getPlot();
+        plot.getRenderer().setSeriesPaint(0, Color.BLUE);
+        // create chart panel the add it to swing panel in  jframe
+        ChartPanel chartPanel = new ChartPanel(barChart);
+        panelRegioner.removeAll();    // clear panel before add new chart
+        panelRegioner.add(chartPanel, BorderLayout.CENTER);
+        panelRegioner.validate();       // refresh panel to display new chart
+        panelRegioner.updateUI();
+        
     }//GEN-LAST:event_btnCheckActionPerformed
 
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
@@ -483,7 +522,7 @@ public class MyFrame extends javax.swing.JFrame {
         
         return res;
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCheck;
     private javax.swing.JLabel btnUpdate;
@@ -498,9 +537,9 @@ public class MyFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel panelRegioner;
+    private javax.swing.JPanel panelÅldersGrupper;
     private javax.swing.JLabel txtAvlidna;
     private javax.swing.JLabel txtAvlidnaKvinnor;
     private javax.swing.JLabel txtAvlidnaMän;
