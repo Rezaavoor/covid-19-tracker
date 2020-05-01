@@ -1,5 +1,4 @@
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.BufferedReader;
@@ -9,16 +8,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.Value;
-import org.jfree.data.category.DefaultCategoryDataset;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,11 +36,18 @@ public class MyFrame extends javax.swing.JFrame {
     /**
      * Creates new form MyFrame
      */
-    public MyFrame() {
+    public MyFrame() throws JSONException, IOException {
         initComponents();
         this.setLocationRelativeTo(null);
+        buttonGroup.add(rBtnNyaFall);
+        buttonGroup.add(rBtnRegion);
+        buttonGroup.add(rBtnÅldersgrupp);
         panelData.setLayout(new java.awt.BorderLayout());
         panelData.setPreferredSize(new Dimension(100,400));
+        
+        updateData();
+        showChart(1);//visa regioners statistik as default
+        updateComboItems();
     }
 
     /**
@@ -60,6 +59,7 @@ public class MyFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup = new javax.swing.ButtonGroup();
         panelData = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtSjukdomsFall = new javax.swing.JLabel();
@@ -80,13 +80,17 @@ public class MyFrame extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        txtResultat = new javax.swing.JLabel();
+        comboRegion = new javax.swing.JComboBox<>();
+        comboÅlder = new javax.swing.JComboBox<>();
+        lblRes2 = new javax.swing.JLabel();
         btnCheck = new javax.swing.JButton();
+        txtResultat = new javax.swing.JLabel();
+        lblRes1 = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rBtnRegion = new javax.swing.JRadioButton();
+        rBtnÅldersgrupp = new javax.swing.JRadioButton();
+        rBtnNyaFall = new javax.swing.JRadioButton();
+        btnSort = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,16 +112,19 @@ public class MyFrame extends javax.swing.JFrame {
 
         txtSjukdomsFall.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtSjukdomsFall.setForeground(new java.awt.Color(204, 204, 0));
+        txtSjukdomsFall.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtSjukdomsFall.setText("18926");
         txtSjukdomsFall.setToolTipText("");
 
         txtSjukdomsFallKvinnor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtSjukdomsFallKvinnor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtSjukdomsFallKvinnor.setText("Kvinnor: 10358");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("|");
 
         txtSjukdomsFallMän.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtSjukdomsFallMän.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtSjukdomsFallMän.setText("Män: 8568");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -125,24 +132,30 @@ public class MyFrame extends javax.swing.JFrame {
 
         txtAvlidna.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtAvlidna.setForeground(new java.awt.Color(204, 0, 51));
+        txtAvlidna.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtAvlidna.setText("2274");
         txtAvlidna.setToolTipText("");
 
         txtAvlidnaKvinnor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtAvlidnaKvinnor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtAvlidnaKvinnor.setText("Kvinnor: 351");
 
         txtAvlidnaMän.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtAvlidnaMän.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtAvlidnaMän.setText("Män: 8568");
 
         txtIntensivVårdade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtIntensivVårdade.setForeground(new java.awt.Color(153, 102, 0));
+        txtIntensivVårdade.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtIntensivVårdade.setText("18926");
         txtIntensivVårdade.setToolTipText("");
 
         txtIntensivVårdadeKvinnor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtIntensivVårdadeKvinnor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtIntensivVårdadeKvinnor.setText("Kvinnor: 10358");
 
         txtIntensivVårdadeMän.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtIntensivVårdadeMän.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtIntensivVårdadeMän.setText("Män: 8568");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -165,12 +178,12 @@ public class MyFrame extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel18.setText("Hur gammal är du?");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboRegion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"loading"}));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboÅlder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        txtResultat.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtResultat.setText("Du har 10% chans att överleva!!!!!!!!!");
+        lblRes2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblRes2.setText("av alla corona smittade i din ålder och region har avlidid!!!!!");
 
         btnCheck.setText("Check");
         btnCheck.addActionListener(new java.awt.event.ActionListener() {
@@ -178,6 +191,13 @@ public class MyFrame extends javax.swing.JFrame {
                 btnCheckActionPerformed(evt);
             }
         });
+
+        txtResultat.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        txtResultat.setForeground(new java.awt.Color(255, 0, 51));
+        txtResultat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtResultat.setText("10%");
+
+        lblRes1.setText("ca");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -194,14 +214,18 @@ public class MyFrame extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboRegion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(jLabel18)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(109, 109, 109)
+                        .addComponent(comboÅlder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(186, 186, 186)
+                .addComponent(lblRes1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtResultat)
-                .addContainerGap(231, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRes2)
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,25 +233,28 @@ public class MyFrame extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
                             .addComponent(btnCheck))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboRegion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel18)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(comboÅlder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(txtResultat)))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRes2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRes1)
+                            .addComponent(txtResultat))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
         btnUpdate.setBackground(new java.awt.Color(204, 255, 204));
         btnUpdate.setFont(new java.awt.Font("Unispace", 1, 11)); // NOI18N
-        btnUpdate.setForeground(new java.awt.Color(204, 255, 204));
+        btnUpdate.setForeground(new java.awt.Color(51, 153, 0));
+        btnUpdate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnUpdate.setText("UPDATE");
         btnUpdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -237,104 +264,114 @@ public class MyFrame extends javax.swing.JFrame {
             }
         });
 
-        jRadioButton1.setText("jRadioButton1");
+        rBtnRegion.setSelected(true);
+        rBtnRegion.setText("Regioner");
+        rBtnRegion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBtnRegionActionPerformed(evt);
+            }
+        });
 
-        jRadioButton2.setText("jRadioButton2");
+        rBtnÅldersgrupp.setText("Åldersgrupper");
+        rBtnÅldersgrupp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBtnÅldersgruppActionPerformed(evt);
+            }
+        });
+
+        rBtnNyaFall.setText("Ny fall");
+        rBtnNyaFall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBtnNyaFallActionPerformed(evt);
+            }
+        });
+
+        btnSort.setText("Sortera");
+        btnSort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSortActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(panelData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(rBtnNyaFall)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rBtnRegion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rBtnÅldersgrupp)
+                        .addGap(38, 38, 38)
+                        .addComponent(btnSort)
+                        .addGap(528, 528, 528))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(txtSjukdomsFall, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(119, 119, 119)
-                                .addComponent(txtSjukdomsFall, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnUpdate)
-                                .addGap(60, 60, 60)
-                                .addComponent(jLabel1)))
-                        .addGap(481, 481, 481)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(71, 71, 71)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGap(486, 486, 486)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
+                                        .addGap(71, 71, 71)
                                         .addComponent(jLabel6)
                                         .addGap(22, 22, 22))
-                                    .addComponent(txtAvlidna, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtAvlidnaKvinnor, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel14)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtAvlidnaKvinnor, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtAvlidnaMän, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtAvlidnaMän, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtAvlidna, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(61, 61, 61))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(txtSjukdomsFallKvinnor, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtSjukdomsFallMän, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSjukdomsFallMän, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(txtIntensivVårdade)
-                                .addGap(15, 15, 15)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtIntensivVårdadeKvinnor, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtIntensivVårdadeKvinnor, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIntensivVårdadeMän, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(86, 86, 86))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(208, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtIntensivVårdadeMän, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(153, 153, 153))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2)
-                        .addGap(443, 443, 443))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(198, 198, 198))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(txtIntensivVårdade, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel13))
+                        .addGap(187, 187, 187))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(162, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(197, 197, 197))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel1)
-                            .addComponent(btnUpdate))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIntensivVårdade)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtIntensivVårdadeKvinnor)
-                            .addComponent(txtIntensivVårdadeMän)
-                            .addComponent(jLabel15)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtSjukdomsFall)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSjukdomsFallKvinnor)
-                            .addComponent(jLabel4)
-                            .addComponent(txtSjukdomsFallMän)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -343,16 +380,40 @@ public class MyFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtAvlidnaKvinnor)
                             .addComponent(txtAvlidnaMän)
-                            .addComponent(jLabel14))))
-                .addGap(31, 31, 31)
-                .addComponent(panelData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSjukdomsFall))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtIntensivVårdade)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtIntensivVårdadeKvinnor)
+                                .addComponent(txtIntensivVårdadeMän)
+                                .addComponent(jLabel15))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtSjukdomsFallKvinnor)
+                                .addComponent(jLabel4)
+                                .addComponent(txtSjukdomsFallMän)))))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                .addComponent(btnUpdate)
+                .addGap(19, 19, 19)
+                .addComponent(panelData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rBtnRegion)
+                    .addComponent(rBtnÅldersgrupp)
+                    .addComponent(rBtnNyaFall)
+                    .addComponent(btnSort, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(326, Short.MAX_VALUE))
+                .addGap(253, 253, 253))
         );
 
         getAccessibleContext().setAccessibleDescription("");
@@ -362,19 +423,33 @@ public class MyFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
-        
-        Chart regionerChart = new Chart("Sjukdomsfall per region","region","antal",panelData);
-        regionerChart.setColor(Color.blue);
-        regionerChart.setDataset(regioner);
-        regionerChart.setSize(100,400);
-        regionerChart.draw();
-        
+        checkRisk();
     }//GEN-LAST:event_btnCheckActionPerformed
 
+    private void checkRisk() {
+        //sökning
+        String selectedRegion = comboRegion.getSelectedItem().toString();
+        String selectedÅlder = comboÅlder.getSelectedItem().toString();
+        Region region = null;
+        Ålder ålder = null;
+        for(Region r:regioner)if(selectedRegion.equals(r.getNamn()))region=r;
+        for(Ålder å:åldrar)if(selectedÅlder.equals(å.getÅldersGrupp()))ålder=å;
+        
+        Person pers = new Person(region,ålder);
+        pers.check();        
+        txtResultat.setText(pers.toString());
+        lblRes1.setText("ca");
+        lblRes2.setText("av alla corona smittade i din ålder och region har avlidid!!!!!");
+        
+    }
+    
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
         System.out.println("loading");
         try {
             updateData();
+            if(rBtnNyaFall.isSelected())showChart(0);
+            else if(rBtnRegion.isSelected())showChart(1);
+            else showChart(2);
         } catch (JSONException ex) {
             Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -383,6 +458,85 @@ public class MyFrame extends javax.swing.JFrame {
         System.out.println("updated");
     }//GEN-LAST:event_btnUpdateMouseClicked
 
+    private void rBtnRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtnRegionActionPerformed
+        showChart(1);
+    }//GEN-LAST:event_rBtnRegionActionPerformed
+
+    private void rBtnNyaFallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtnNyaFallActionPerformed
+        showChart(0);
+    }//GEN-LAST:event_rBtnNyaFallActionPerformed
+
+    private void rBtnÅldersgruppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtnÅldersgruppActionPerformed
+        showChart(2);
+    }//GEN-LAST:event_rBtnÅldersgruppActionPerformed
+
+    private void btnSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSortActionPerformed
+        sort();
+        if(rBtnNyaFall.isSelected())showChart(0);
+        else if(rBtnRegion.isSelected())showChart(1);
+        else showChart(2);
+    }//GEN-LAST:event_btnSortActionPerformed
+
+    private void sort() {
+        //bubble sort
+        for(int m = regioner.size()-1; m>=0; m--){
+            for(int n=0; n<m; n++){
+                if(regioner.get(n).getTotaltAntalFall()<regioner.get(n+1).getTotaltAntalFall()){
+                    Region temp = regioner.get(n);
+                    regioner.set(n,regioner.get(n+1));
+                    regioner.set(n+1,temp);
+                }
+            }
+        }
+        for(int m = åldrar.size()-1; m>=0; m--){
+            for(int n=0; n<m; n++){
+                if(åldrar.get(n).getTotaltAntalFall()<åldrar.get(n+1).getTotaltAntalFall()){
+                    Ålder temp = åldrar.get(n);
+                    åldrar.set(n,åldrar.get(n+1));
+                    åldrar.set(n+1,temp);
+                }
+            }
+        }
+    }
+    
+    private void showChart(int i) {
+        Chart chart;
+        switch (i) {
+            case 0:
+                //ny fall
+                chart = new Chart("Nya fall per region","region","antal",panelData);
+                chart.setColor(Color.blue);
+                chart.setDataset(regioner, 0);
+                chart.setSize(100,400);
+                chart.draw();
+                break;
+            case 1:
+                //regioner
+                chart = new Chart("Sjukdomsfall per region","region","antal",panelData);
+                chart.setColor(Color.blue);
+                chart.setDataset(regioner, 1);
+                chart.setSize(100,400);
+                chart.draw();
+                break;
+            case 2:
+                //åldersgrupper
+                chart = new Chart("Sjukdomsfall per åldersgrupp","åldersgrupp","antal",panelData);
+                chart.setColor(Color.blue);
+                chart.setDataset(åldrar, 2);
+                chart.setSize(100,400);
+                chart.draw();
+                break;
+            default:
+                //regioner
+                chart = new Chart("Sjukdomsfall per region","region","antal",panelData);
+                chart.setColor(Color.blue);
+                chart.setDataset(regioner, 1);
+                chart.setSize(100,400);
+                chart.draw();
+                
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -413,7 +567,13 @@ public class MyFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MyFrame().setVisible(true);
+                try {
+                    new MyFrame().setVisible(true);
+                } catch (JSONException ex) {
+                    Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
                 
             }
@@ -422,6 +582,7 @@ public class MyFrame extends javax.swing.JFrame {
     
     public void updateData() throws JSONException, IOException{
         regioner.clear();
+        åldrar.clear();
         
         //folkhälsomyndighetens api
         String regionerUrl = "https://services5.arcgis.com/fsYDFeRKu1hELJJs/arcgis/rest/services/FOHM_Covid_19_FME_1/FeatureServer/0/query?f=json&where=Region%20%3C%3E%20%27dummy%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultOffset=0&resultRecordCount=25&resultType=standard&cacheHint=true";
@@ -487,6 +648,13 @@ public class MyFrame extends javax.swing.JFrame {
         
     }
     
+    private void updateComboItems() {
+        comboRegion.removeAllItems();
+        comboÅlder.removeAllItems();
+        for(Region r:regioner) comboRegion.addItem(r.getNamn());
+        for(Ålder å:åldrar) comboÅlder.addItem(å.getÅldersGrupp());
+    }
+    
     public JSONObject fetch(String u) throws MalformedURLException, IOException, JSONException{
         URL url = new URL(u);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -505,9 +673,11 @@ public class MyFrame extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCheck;
+    private javax.swing.JButton btnSort;
     private javax.swing.JLabel btnUpdate;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.JComboBox<String> comboRegion;
+    private javax.swing.JComboBox<String> comboÅlder;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -518,9 +688,12 @@ public class MyFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JLabel lblRes1;
+    private javax.swing.JLabel lblRes2;
     private javax.swing.JPanel panelData;
+    private javax.swing.JRadioButton rBtnNyaFall;
+    private javax.swing.JRadioButton rBtnRegion;
+    private javax.swing.JRadioButton rBtnÅldersgrupp;
     private javax.swing.JLabel txtAvlidna;
     private javax.swing.JLabel txtAvlidnaKvinnor;
     private javax.swing.JLabel txtAvlidnaMän;
@@ -532,4 +705,9 @@ public class MyFrame extends javax.swing.JFrame {
     private javax.swing.JLabel txtSjukdomsFallKvinnor;
     private javax.swing.JLabel txtSjukdomsFallMän;
     // End of variables declaration//GEN-END:variables
+
+
+    
+
+
 }

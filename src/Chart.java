@@ -42,17 +42,33 @@ public class Chart {
     }
     
 
-    public void setDataset(ArrayList<Region> data) {
+    /**
+     * 
+     * @param data
+     * @param type visar vilken digram den är: 0=nya fall   1=regioner  2=åldersgrupper
+     */
+    public void setDataset(ArrayList data, int type) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
-        if(data.get(0).getClass().getSimpleName().equals("Region")){ // listan är statistiken om regioner
-            for(Region r:data){
+        if(type==0){ // listan är statistiken om nya fall
+            ArrayList<Region> regioner = data;
+            for(Region r:regioner){
+                dataset.addValue(r.getNyaFall(), "sjuka", r.getNamn());
+            }
+        }
+        else if(type==1) { // listan är statistiken om regioner
+            ArrayList<Region> regioner = data;
+            for(Region r:regioner){
                 dataset.addValue(r.getTotaltAntalFall(), "sjuka", r.getNamn());
                 dataset.addValue(r.getTotaltAntalAvlidna(), "avlidna", r.getNamn());
             }
         }
         else { // listan är statistiken om åldersgrupper
-            
+            ArrayList<Ålder> åldrar = data;
+            for(Ålder å:åldrar){
+                dataset.addValue(å.getTotaltAntalFall(), "sjuka", å.getÅldersGrupp());
+                dataset.addValue(å.getAvlidna(), "avlidna", å.getÅldersGrupp());
+            }
         }
         this.dataset = dataset;
     }

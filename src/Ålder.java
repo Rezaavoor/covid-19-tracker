@@ -10,16 +10,28 @@
  */
 public class Ålder {
     private final String åldersGrupp;
-    private final int sjukdomsFall, avlidna;
+    private final int totaltAntalFall, avlidna;
+
+    public String getÅldersGrupp() {
+        return åldersGrupp;
+    }
+
+    public int getTotaltAntalFall() {
+        return totaltAntalFall;
+    }
+
+    public int getAvlidna() {
+        return avlidna;
+    }
     
     public Ålder(String å, int s, int a){
-        this.sjukdomsFall = s;
+        this.totaltAntalFall = s;
         this.avlidna = a;
         this.åldersGrupp = å;
     }
     
     @Override
     public String toString(){
-        return "Åldersgruppen "+åldersGrupp+" har "+sjukdomsFall+" sjukdomsfall och "+avlidna+" avlidna";
+        return "Åldersgruppen "+åldersGrupp+" har "+totaltAntalFall+" sjukdomsfall och "+avlidna+" avlidna";
     }
 }
