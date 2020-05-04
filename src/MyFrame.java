@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +37,7 @@ public class MyFrame extends javax.swing.JFrame {
     /**
      * Creates new form MyFrame
      */
-    public MyFrame() throws JSONException, IOException {
+    public MyFrame() throws Exception {
         initComponents();
         this.setLocationRelativeTo(null);
         buttonGroup.add(rBtnNyaFall);
@@ -450,10 +451,8 @@ public class MyFrame extends javax.swing.JFrame {
             if(rBtnNyaFall.isSelected())showChart(0);
             else if(rBtnRegion.isSelected())showChart(1);
             else showChart(2);
-        } catch (JSONException ex) {
-            Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            System.out.println("Error: "+ex);
         }
         System.out.println("updated");
     }//GEN-LAST:event_btnUpdateMouseClicked
@@ -569,10 +568,8 @@ public class MyFrame extends javax.swing.JFrame {
             public void run() {
                 try {
                     new MyFrame().setVisible(true);
-                } catch (JSONException ex) {
-                    Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    System.out.println("Error: "+ex);
                 }
                 
                 
@@ -580,7 +577,7 @@ public class MyFrame extends javax.swing.JFrame {
         });
     }
     
-    public void updateData() throws JSONException, IOException{
+    public void updateData() throws Exception{
         regioner.clear();
         åldrar.clear();
         
@@ -655,7 +652,7 @@ public class MyFrame extends javax.swing.JFrame {
         for(Ålder å:åldrar) comboÅlder.addItem(å.getÅldersGrupp());
     }
     
-    public JSONObject fetch(String u) throws MalformedURLException, IOException, JSONException{
+    public JSONObject fetch(String u) throws Exception {
         URL url = new URL(u);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET"); // get request till en rest api
