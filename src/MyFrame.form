@@ -68,7 +68,6 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="71" pref="71" max="-2" attributes="0"/>
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="txtAvlidnaKvinnor" min="-2" pref="86" max="-2" attributes="0"/>
@@ -174,11 +173,13 @@
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Component id="panelData" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="rBtnRegion" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="rBtnÅldersgrupp" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="rBtnNyaFall" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnSort" alignment="1" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="rBtnRegion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rBtnÅldersgrupp" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rBtnNyaFall" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
               <Component id="jPanel3" min="-2" max="-2" attributes="0"/>

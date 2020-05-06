@@ -5,32 +5,26 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
- *
- * @author Avoor
+ * Ett program som visar den senaste statistiken om corona viruset i Sverige.
+ * All data tas från Folkhälsomyndighetens API
+ * 
+ * @author Reza Hosseini
  */
 public class MyFrame extends javax.swing.JFrame {
 
     ArrayList<Region> regioner = new ArrayList<>();
     ArrayList<Ålder> åldrar = new ArrayList<>();
-    int sjukdomsFall, sjukdomsFallMän, // apin hade bara statistik om män! så antal kvinnor = total-män
+    int sjukdomsFall, sjukdomsFallMän, // API:n hade bara statistik om män! så antal kvinnor = total-män
         intensivVårdade, intensivVårdadeMän,
         avlidna, avlidnaMän;
 
@@ -327,8 +321,7 @@ public class MyFrame extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(71, 71, 71)
-                                        .addComponent(jLabel6)
-                                        .addGap(22, 22, 22))
+                                        .addComponent(jLabel6))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtAvlidnaKvinnor, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -407,11 +400,12 @@ public class MyFrame extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(panelData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rBtnRegion)
-                    .addComponent(rBtnÅldersgrupp)
-                    .addComponent(rBtnNyaFall)
-                    .addComponent(btnSort, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSort, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(rBtnRegion)
+                        .addComponent(rBtnÅldersgrupp)
+                        .addComponent(rBtnNyaFall)))
                 .addGap(45, 45, 45)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(253, 253, 253))
@@ -448,12 +442,17 @@ public class MyFrame extends javax.swing.JFrame {
         System.out.println("loading");
         try {
             updateData();
-            if(rBtnNyaFall.isSelected())showChart(0);
-            else if(rBtnRegion.isSelected())showChart(1);
-            else showChart(2);
-        } catch (Exception ex) {
-            System.out.println("Error: "+ex);
+        } catch (IOException ex) {
+            System.out.println("IO Error: "+ex);
+        } catch (JSONException ex) {
+            System.out.println("JSON Error: "+ex);
+        } catch (FetchException ex) {
+            System.out.println("Fetch Error: "+ex);
         }
+        if(rBtnNyaFall.isSelected())showChart(0);
+        else if(rBtnRegion.isSelected())showChart(1);
+        else showChart(2);
+        
         System.out.println("updated");
     }//GEN-LAST:event_btnUpdateMouseClicked
 
@@ -498,9 +497,9 @@ public class MyFrame extends javax.swing.JFrame {
         }
     }
     
-    private void showChart(int i) {
+    private void showChart(int chartNum) {
         Chart chart;
-        switch (i) {
+        switch (chartNum) {
             case 0:
                 //ny fall
                 chart = new Chart("Nya fall per region","region","antal",panelData);
@@ -566,18 +565,22 @@ public class MyFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
+               
                 try {
                     new MyFrame().setVisible(true);
                 } catch (Exception ex) {
-                    System.out.println("Error: "+ex);
+                    Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+
                 
                 
             }
         });
     }
     
-    public void updateData() throws Exception{
+    public void updateData() throws IOException, JSONException, FetchException {
         regioner.clear();
         åldrar.clear();
         
@@ -652,10 +655,15 @@ public class MyFrame extends javax.swing.JFrame {
         for(Ålder å:åldrar) comboÅlder.addItem(å.getÅldersGrupp());
     }
     
-    public JSONObject fetch(String u) throws Exception {
+    public JSONObject fetch(String u) throws IOException, JSONException, FetchException {
         URL url = new URL(u);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET"); // get request till en rest api
+        try{
+            con.setRequestMethod("GET"); // get request till en rest api
+        }
+        catch(Exception e){ //apin fungerar inte eller något annat fel har uppkommit
+            throw new FetchException(String.valueOf(e)); // våran FetchException accepterar bara String!
+        }
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
         StringBuilder response = new StringBuilder();

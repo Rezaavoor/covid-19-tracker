@@ -19,7 +19,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
- * @author Avoor
+ * @author Reza Hosseini
  */
 public class Chart {
     private Dimension size;

@@ -6,7 +6,7 @@
 
 /**
  *
- * @author Avoor
+ * @author Reza Hosseini
  */
 public class Region {
     private final String namn;

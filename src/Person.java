@@ -6,7 +6,7 @@
 
 /**
  *
- * @author Avoor
+ * @author Reza Hosseini
  */
 public class Person {
     private final Region region;
@@ -23,6 +23,7 @@ public class Person {
         System.out.println("reg-avlid: "+region.getTotaltAntalAvlidna());
         System.out.println("ålder-tot: "+ålder.getTotaltAntalFall());
         System.out.println("ålder-avlid: "+ålder.getAvlidna());
+        //TODO: the float numbers won't work. Fix them!!
         //probability = ((region.getTotaltAntalAvlidna()/region.getTotaltAntalFall())*(ålder.getAvlidna()/ålder.getTotaltAntalFall()));
         probability = 3/2;
         System.out.println(probability);

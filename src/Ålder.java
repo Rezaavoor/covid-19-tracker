@@ -6,7 +6,7 @@
 
 /**
  *
- * @author Avoor
+ * @author Reza Hosseini
  */
 public class Ålder {
     private final String åldersGrupp;
