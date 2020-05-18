@@ -22,10 +22,6 @@ public class Person {
     }
     
     public void check(){
-        System.out.println("reg-tot: "+region.getTotaltAntalFall());
-        System.out.println("reg-avlid: "+region.getTotaltAntalAvlidna());
-        System.out.println("ålder-tot: "+ålder.getTotaltAntalFall());
-        System.out.println("ålder-avlid: "+ålder.getAvlidna());
         probability = (((double)region.getTotaltAntalAvlidna()/(double)region.getTotaltAntalFall())*((double)ålder.getAvlidna()/(double)ålder.getTotaltAntalFall()))*1000.0; //svaret är i promille!
         probability = round(probability); //avrundar till 3 decimaler
     }
