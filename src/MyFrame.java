@@ -190,7 +190,7 @@ public class MyFrame extends javax.swing.JFrame {
         txtResultat.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         txtResultat.setForeground(new java.awt.Color(255, 0, 51));
         txtResultat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtResultat.setText("10%");
+        txtResultat.setText("3.7‰");
 
         lblRes1.setText("ca");
 
@@ -340,7 +340,7 @@ public class MyFrame extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSjukdomsFallMän, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 343, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtIntensivVårdadeKvinnor, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -357,9 +357,9 @@ public class MyFrame extends javax.swing.JFrame {
                             .addComponent(jLabel13))
                         .addGap(187, 187, 187))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(162, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(197, 197, 197))
+                .addGap(152, 152, 152))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -406,9 +406,9 @@ public class MyFrame extends javax.swing.JFrame {
                         .addComponent(rBtnRegion)
                         .addComponent(rBtnÅldersgrupp)
                         .addComponent(rBtnNyaFall)))
-                .addGap(45, 45, 45)
+                .addGap(34, 34, 34)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(253, 253, 253))
+                .addGap(264, 264, 264))
         );
 
         getAccessibleContext().setAccessibleDescription("");

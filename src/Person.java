@@ -1,3 +1,6 @@
+
+import java.text.DecimalFormat;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -23,14 +26,17 @@ public class Person {
         System.out.println("reg-avlid: "+region.getTotaltAntalAvlidna());
         System.out.println("ålder-tot: "+ålder.getTotaltAntalFall());
         System.out.println("ålder-avlid: "+ålder.getAvlidna());
-        //TODO: the float numbers won't work. Fix them!!
-        //probability = ((region.getTotaltAntalAvlidna()/region.getTotaltAntalFall())*(ålder.getAvlidna()/ålder.getTotaltAntalFall()));
-        probability = 3/2;
-        System.out.println(probability);
+        probability = (((double)region.getTotaltAntalAvlidna()/(double)region.getTotaltAntalFall())*((double)ålder.getAvlidna()/(double)ålder.getTotaltAntalFall()))*1000.0; //svaret är i promille!
+        probability = round(probability); //avrundar till 3 decimaler
+    }
+    
+    private double round(double n){
+        DecimalFormat df = new DecimalFormat("#.###");
+        return Double.valueOf(df.format(n));
     }
     
     @Override
     public String toString(){
-        return String.valueOf(probability);
+        return String.valueOf(probability)+"‰";
     }
 }
